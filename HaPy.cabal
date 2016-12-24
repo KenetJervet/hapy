@@ -15,8 +15,16 @@ cabal-version:       >=1.10
 
 library
   hs-source-dirs:      src
-  exposed-modules:     Lib
+  exposed-modules:     HaPy
+                     , HaPy.PyPy
+  c-sources:           c/pypy.c
+  install-includes:    PyPy.h
+  include-dirs:        /usr/lib64/pypy/include
+  extra-lib-dirs:      /usr/lib64/pypy
+  extra-libraries:     pypy-c
   build-depends:       base >= 4.7 && < 5
+                     , bytestring
+                     , text
   default-language:    Haskell2010
 
 executable HaPy-exe
@@ -24,6 +32,8 @@ executable HaPy-exe
   main-is:             Main.hs
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base
+                     , interpolate
+                     , text
                      , HaPy
   default-language:    Haskell2010
 
